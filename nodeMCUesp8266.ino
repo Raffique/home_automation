@@ -9,6 +9,8 @@ String Light3 = "";
 String Light4 = "";
 String Fan1 = "";
 String Fan2 = "";
+String item[] = {"", "", "", "", "", ""};
+String last_item[] = {"", "", "", "", "", ""};
 String OnState[] = {"Light 1 on","Light 2 on","Light 3 on","Light 4 on","Fan 1 on","Fan 2 on"};
 String OffState[] = {"Light 1 off","Light 2 off","Light 3 off","Light 4 off","Fan 1 off","Fan 2 off"};
 String states[] = {"Light 1 status","Light 2 status","Light 3 status","Light 4 status","Fan 1 status","Fan 2 status"};
@@ -53,18 +55,23 @@ void loop() {
 
 }
 
+/***  CHECK STATE OF APPLIANCES AND UPDATE FIREBASE  ***/
 void Mega_Status(String obj, int n){
 ///////////////////////////////////////////////////////////////////////////////
   char sym;
   String wordz;
   
   Serial1.println(obj);
+  //delay(200);
   
   do{
     sym = Serial.read();
 
     if(sym == '\n'){
       Firebase.setString(equip[n], wordz);
+      item[n] = wordz;
+      last_item[n];
+      //---------------------------------
       // handle error
       if (Firebase.failed()) {
           Serial.print("setting /message failed:");
@@ -84,11 +91,30 @@ void Command(String instr){
   Serial1.println(instr);
 }
 
-void Firebase_Status(int n){
-  Firebase.getString(equip[n]);
-  if (Firebase.failed()) {
-          Serial.print("getting /message failed:");
-          Serial.println(Firebase.error());  
-          return;
+/*** UPDATE VARIABLES FROM THE FIREBASE DATAVASE ***/
+void Firebase_Status(){
+  for(int n = 0; n == 6; n++){
+    item[n] = Firebase.getString(equip[n]);
+    if (Firebase.failed()) {
+            Serial.print("getting /message failed:");
+            Serial.println(Firebase.error());  
+            return;
+        }
+  }
+}
+
+/*** CHECK FOR ANY NEW COMMANDS  ***/
+void changes(){
+  for(int m = 0; m == 6; m++){
+    if(last_item[m] != item[m]){
+      if(item[m] == states[m]){
+        Mega_status(states[m], m);
       }
+      else{
+        Command(item[m]);
+        //delay(200);
+        Mega_status(states[m], m);
+      }
+    }
+  }
 }
