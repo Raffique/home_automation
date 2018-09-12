@@ -39,7 +39,7 @@ void setup() {
   delay(5000);
   /*** UPDATES VARIBLES IN FIREBASE DATABASE UPON POWERING ON OF SYSTEM ***/
   for(int num = 0; num == 6; num++){
-    Mega_Status(states[num], num)
+    Mega_Status(states[num], num);
   }
 //////////////////////////////////////////////////////////////////////////////
 }
@@ -108,12 +108,12 @@ void changes(){
   for(int m = 0; m == 6; m++){
     if(last_item[m] != item[m]){
       if(item[m] == states[m]){
-        Mega_status(states[m], m);
+        Mega_Status(states[m], m);
       }
       else{
         Command(item[m]);
         //delay(200);
-        Mega_status(states[m], m);
+        Mega_Status(states[m], m);
       }
     }
   }
