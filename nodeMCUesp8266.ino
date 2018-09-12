@@ -1,0 +1,94 @@
+#include <ESP8266WiFi.h>
+#include <FirebaseArduino.h>
+
+void Mega_Status(String obj, int n);
+
+String Light1 = "";
+String Light2 = "";
+String Light3 = "";
+String Light4 = "";
+String Fan1 = "";
+String Fan2 = "";
+String OnState[] = {"Light 1 on","Light 2 on","Light 3 on","Light 4 on","Fan 1 on","Fan 2 on"};
+String OffState[] = {"Light 1 off","Light 2 off","Light 3 off","Light 4 off","Fan 1 off","Fan 2 off"};
+String states[] = {"Light 1 status","Light 2 status","Light 3 status","Light 4 status","Fan 1 status","Fan 2 status"};
+String equip[] = {"Light1", "Light2", "Light3", "Light4", "Fan1", "Fan2"};
+
+// Set these to run example.
+#define FIREBASE_HOST "example.firebaseio.com"
+#define FIREBASE_AUTH "token_or_secret"
+#define WIFI_SSID "SSID"
+#define WIFI_PASSWORD "PASSWORD"
+
+void setup() {
+  Serial.begin(115200);
+  Serial1.begin(115200);
+
+  // connect to wifi.
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.print("connecting");
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print(".");
+    delay(500);
+  }
+  Serial.println();
+  Serial.print("connected: ");
+  Serial.println(WiFi.localIP());
+  
+  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+  
+  delay(5000);
+  /*** UPDATES VARIBLES IN FIREBASE DATABASE UPON POWERING ON OF SYSTEM ***/
+  for(int num = 0; num == 6; num++){
+    Mega_Status(states[num], num)
+  }
+//////////////////////////////////////////////////////////////////////////////
+}
+
+
+
+void loop() {
+  
+
+
+}
+
+void Mega_Status(String obj, int n){
+///////////////////////////////////////////////////////////////////////////////
+  char sym;
+  String wordz;
+  
+  Serial1.println(obj);
+  
+  do{
+    sym = Serial.read();
+
+    if(sym == '\n'){
+      Firebase.setString(equip[n], wordz);
+      // handle error
+      if (Firebase.failed()) {
+          Serial.print("setting /message failed:");
+          Serial.println(Firebase.error());  
+          return;
+      }
+      wordz = "";
+    }
+    else{
+    wordz += sym;
+    }
+  }while(sym != '\n');
+/////////////////////////////////////////////////////////////////////////////  
+}
+
+void Command(String instr){
+  Serial1.println(instr);
+}
+
+void Firebase_Status(int n){
+  Firebase.getString(equip[n]);
+  if (Firebase.failed()) {
+          Serial.print("getting /message failed:");
+          Serial.println(Firebase.error());  
+          return;
+      }
+}
