@@ -2,13 +2,10 @@
 #include <FirebaseArduino.h>
 
 void Mega_Status(String obj, int n);
+void Command(String instr);
+void Firebase_Status();
+void changes();
 
-String Light1 = "";
-String Light2 = "";
-String Light3 = "";
-String Light4 = "";
-String Fan1 = "";
-String Fan2 = "";
 String item[] = {"", "", "", "", "", ""};
 String last_item[] = {"", "", "", "", "", ""};
 String OnState[] = {"Light 1 on","Light 2 on","Light 3 on","Light 4 on","Fan 1 on","Fan 2 on"};
@@ -51,9 +48,12 @@ void setup() {
 
 void loop() {
   
-
+    Firebase_Status();
+    changes();
 
 }
+
+/******************** FUNCTIONS ************************************/
 
 /***  CHECK STATE OF APPLIANCES AND UPDATE FIREBASE  ***/
 void Mega_Status(String obj, int n){
