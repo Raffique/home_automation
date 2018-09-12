@@ -94,7 +94,7 @@ void setup() {
 
 }
 
-String = data = "";
+String data = "";
 void check_message(String data);
 void SendText(String text);
 
