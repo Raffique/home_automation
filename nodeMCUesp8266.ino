@@ -8,8 +8,6 @@ void changes();
 
 String item[] = {"", "", "", "", "", ""};
 String last_item[] = {"", "", "", "", "", ""};
-String OnState[] = {"Light 1 on","Light 2 on","Light 3 on","Light 4 on","Fan 1 on","Fan 2 on"};
-String OffState[] = {"Light 1 off","Light 2 off","Light 3 off","Light 4 off","Fan 1 off","Fan 2 off"};
 String states[] = {"Light 1 status","Light 2 status","Light 3 status","Light 4 status","Fan 1 status","Fan 2 status"};
 String equip[] = {"Light1", "Light2", "Light3", "Light4", "Fan1", "Fan2"};
 
