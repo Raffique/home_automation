@@ -38,7 +38,7 @@ void setup() {
   
   delay(5000);
   /*** UPDATES VARIBLES IN FIREBASE DATABASE UPON POWERING ON OF SYSTEM ***/
-  for(int num = 0; num == 6; num++){
+  for(int num = 0; num <= 5; num++){
     Mega_Status(states[num], num);
   }
 //////////////////////////////////////////////////////////////////////////////
@@ -61,7 +61,7 @@ void Mega_Status(String obj, int n){
   char sym;
   String wordz;
   
-  Serial1.println(obj);
+  Command(obj);
   //delay(200);
   
   do{
@@ -93,7 +93,7 @@ void Command(String instr){
 
 /*** UPDATE VARIABLES FROM THE FIREBASE DATAVASE ***/
 void Firebase_Status(){
-  for(int n = 0; n == 6; n++){
+  for(int n = 0; n <= 5; n++){
     item[n] = Firebase.getString(equip[n]);
     if (Firebase.failed()) {
             Serial.print("getting /message failed:");
@@ -105,7 +105,7 @@ void Firebase_Status(){
 
 /*** CHECK FOR ANY NEW COMMANDS  ***/
 void changes(){
-  for(int m = 0; m == 6; m++){
+  for(int m = 0; m <= 5; m++){
     if(last_item[m] != item[m]){
       if(item[m] == states[m]){
         Mega_Status(states[m], m);
