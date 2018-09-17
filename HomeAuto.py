@@ -64,9 +64,9 @@ gpio.setup(B6, gpio.IN, pull_up_down = gpio.PUD_UP)
 
 #Firebase Configuration
 config = {
-  "apiKey": "AIzaSyC_2yT71bUZAHS-3J8-2gAxvDeJv24f4NA",
-  "authDomain": "home-automation-3d483.firebaseapp.com",
-  "databaseURL": "https://home-automation-3d483.firebaseio.com/",
+  "apiKey": "APIkey",
+  "authDomain": "project_ID.firebaseapp.com",
+  "databaseURL": "databse URL",
   "storageBucket": ""
 }
 
@@ -116,7 +116,7 @@ while True:
     
 #pip3 install pyrebase
 #pip3 install --upgrade google-auth-oauthlib
-#led = db.child("Light1").get()
+#led = db.child("Variable").get()
 #print(led.val())
 #db.child("Fan1").set("\"Fan 1 off\"")
 #gpio.output(pin,1)
