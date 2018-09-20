@@ -41,12 +41,12 @@ double AmpsCR6 = 0; //Fan 2
 /***************************
 **RELAY PINS DECLARED**
 ****************************/
-const int SENSOR1 = 6;  //Light 1
-const int SENSOR2 = 9;  //Light 2
-const int SENSOR3 = 10;  //Light 3
-const int SENSOR4 = 11;  //Light 4
-const int SENSOR5 = 12;  //Fan 1
-const int SENSOR6 = 13;  //Fan 2
+const int SENSOR1 = 2;  //Light 1
+const int SENSOR2 = 3;  //Light 2
+const int SENSOR3 = 4;  //Light 3
+const int SENSOR4 = 5;  //Light 4
+const int SENSOR5 = 6;  //Fan 1
+const int SENSOR6 = 7;  //Fan 2
 
 /***********
 **VARIBLES**
@@ -58,7 +58,6 @@ void setup() {
   ***RELAY PIN MODE SETUP***
   **************************/
   Serial.begin(115200);
-  Serial1.begin(115200);
   pinMode(SENSOR1, OUTPUT); 
   pinMode(SENSOR2, OUTPUT); 
   pinMode(SENSOR3, OUTPUT); 
@@ -69,50 +68,64 @@ void setup() {
 
 }
 
+int threshold = 513;
+
 void loop() {
 
   checkVolts();
   
-  if(AmpsCR1 > 0){
+  if(RawValue_CR1 > threshold){
      digitalWrite(SENSOR1, HIGH);
+     Serial.println("CR1: HIGH");
   }
   else{
      digitalWrite(SENSOR1, LOW);
+     Serial.println("CR1: LOW");
   }
  /*********************************************/  
-  if(AmpsCR2 > 0){
+  if(RawValue_CR2 > threshold){
      digitalWrite(SENSOR2, HIGH);
+      Serial.println("CR2: HIGH");
   }
   else{
      digitalWrite(SENSOR2, LOW);
+     Serial.println("CR2: LOW");
   }
  /**********************************************/ 
-  if(AmpsCR3 > 0){
+  if(RawValue_CR3 > threshold){
      digitalWrite(SENSOR3, HIGH);
+      Serial.println("CR3: HIGH");
   }
   else{
      digitalWrite(SENSOR3, LOW);
+     Serial.println("CR3: LOW");
   }
  /***********************************************/
- if(AmpsCR4 > 0){
+ if(RawValue_CR4 > threshold){
      digitalWrite(SENSOR4, HIGH);
+      Serial.println("CR4: HIGH");
   }
   else{
      digitalWrite(SENSOR4, LOW);
+     Serial.println("CR4: LOW");
   }
  /***********************************************/
- if(AmpsCR5 > 0){
+ if(RawValue_CR5 > threshold){
      digitalWrite(SENSOR5, HIGH);
+      Serial.println("CR5: HIGH");
   }
   else{
      digitalWrite(SENSOR5, LOW);
+     Serial.println("CR5: LOW");
   }
  /***********************************************/
- if(AmpsCR6 > 0){
+ if(RawValue_CR6 > threshold){
      digitalWrite(SENSOR6, HIGH);
+      Serial.println("CR6: HIGH");
   }
   else{
      digitalWrite(SENSOR6, LOW);
+     Serial.println("CR6: LOW");
   }
  /***********************************************/
 
@@ -151,7 +164,6 @@ void checkVolts(){
   AmpsCR6 = ((Voltage_CR6 - 2500) / 66);
 
 }
-
 
 
 
