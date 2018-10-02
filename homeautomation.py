@@ -105,7 +105,6 @@ def check_firebase():
 def check_buttons():
     for rep in range(0,6):
         if not(gpio.input(BUTTONS[rep])):
-            pulse(RELAYS[rep])
             if gpio.input(SENSORS[rep]) == True:
                 db.child(EQUIP[rep]).set(ONS[rep])
             else:
@@ -113,18 +112,30 @@ def check_buttons():
             while not(gpio.input(BUTTONS[rep])):
                 pass
             
+def check_buttons2():
+    for rep in range(0,6):
+        if not(gpio.input(BUTTONS[rep])):
+          pulse(RELAYS[rep])
+          while not(gpio.input(BUTTONS[rep])):
+              pass
+
+            
 #Main once
 time.sleep(5)
-print("Starting report")
-report()
-print("Firest report done")
+try:
+  report()
+  mode = 0
+except:
+  mode = 1
 
 #Main loop
-while True:
-    print("Checking firebase")
+if mode == 0:
+  while True:
     check_firebase()
-    print("Checking buttons")
     check_buttons()
+else:
+  while True:
+    check_buttons2()
             
     
 #pip3 install pyrebase
