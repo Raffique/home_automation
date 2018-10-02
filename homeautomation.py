@@ -7,26 +7,26 @@ gpio.cleanup()
 gpio.setmode(gpio.BOARD)
 
 #PINS
-R1 = 3
-R2 = 5
-R3 = 7
-R4 = 8
-R5 = 10
-R6 = 11
+R1 = 3 #gpio 2
+R2 = 5 #gpio 3
+R3 = 7 #gpio 4
+R4 = 8 #UART0 TX
+R5 = 10 #UART0 RX
+R6 = 11 #gpio 17
 
-S1 = 12
-S2 = 13
-S3 = 15
-S4 = 16
-S5 = 18
-S6 = 19
+S1 = 12 #gpio 18
+S2 = 13 #gpio 27
+S3 = 15 #gpio 22
+S4 = 16 #gpio 23
+S5 = 18 #gpio 24
+S6 = 19 #gpio 10
 
-B1 = 21
-B2 = 22
-B3 = 23
-B4 = 31
-B5 = 32
-B6 = 33
+B1 = 21 #gpio 9
+B2 = 22 #gpio 25
+B3 = 23 #gpio 11
+B4 = 31 #gpio 6
+B5 = 32 #gpio 12
+B6 = 33 #gpio 13
 
 RELAYS = [R1,R2,R3,R4,R5,R6]
 SENSORS = [S1,S2,S3,S4,S5,S6]
